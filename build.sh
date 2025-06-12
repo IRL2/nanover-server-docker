@@ -23,7 +23,7 @@ run_container() {
     if [ $# -eq 0 ]; then
         echo "No arguments provided - starting with default settings"
         docker run -it --rm \
-            -p 0.0.0.0:8080:8080 \
+            -p 0.0.0.0:8888:8888 \
             -p 0.0.0.0:38801:38801 \
             -p 0.0.0.0:38802:38802 \
             -p 0.0.0.0:54545:54545 \
@@ -34,7 +34,7 @@ run_container() {
     else
         echo "Starting with arguments: $@"
         docker run -it --rm \
-            -p 0.0.0.0:8080:8080 \
+            -p 0.0.0.0:8888:8888 \
             -p 0.0.0.0:38801:38801 \
             -p 0.0.0.0:38802:38802 \
             -p 0.0.0.0:54545:54545 \
@@ -49,7 +49,7 @@ run_container() {
 run_shell() {
     echo "Starting interactive shell in NanoVer container..."
     docker run -it --rm \
-        -p 0.0.0.0:8080:8080 \
+        -p 0.0.0.0:8888:8888 \
         -p 0.0.0.0:38801:38801 \
         -p 0.0.0.0:38802:38802 \
         -p 0.0.0.0:54545:54545 \
