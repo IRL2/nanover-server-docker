@@ -23,11 +23,14 @@ RUN git clone https://github.com/IRL2/nanover-server-py.git
 
 # Make sure the environment is activated by default
 RUN echo "conda activate ${CONDA_ENV_NAME}" >> ~/.bashrc
+
+
+# Shell entry
 SHELL ["/bin/bash", "--login", "-c"]
 
-# Install any additional Python packages if needed
-# RUN conda activate ${CONDA_ENV_NAME} && \
-#     pip install additional-package-name
+# Run entrypoint script
+ADD entryp.sh /
+RUN chmod +x /entryp.sh
 
 # Create entrypoint script
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
@@ -48,10 +51,10 @@ RUN echo '#!/bin/bash' > /entrypoint.sh && \
     chmod +x /entrypoint.sh
 
 # Expose common ports (adjust as needed for your server)
-EXPOSE 8080 38801 38802 38803 54545
+EXPOSE 8888 38801 38802 38803 54545
 
 # Set the entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entryp.sh"]
 
 # Default command (can be overridden)
 CMD []
