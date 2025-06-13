@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  nanover-server:
+    build: .
+    container_name: nanover-server
+    ports:
+      - "8888:8888"     # HTTP port
+      - "38801:38801"   # NanoVer default ports
+      - "38802:38802"
+      - "38803:38803"
+      - "54545:54545"   # Discovery
+    volumes:
+      # Mount local directories for input files, configs, etc.
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - CONDA_ENV_NAME=nanover
+    # Example: pass arguments to the server
+    # command: ["--omm", "/app/data/my_simulation.xml", "--data-dir", "/app/data"]
+    
+    # For development/debugging - uncomment to override entrypoint
+    # entrypoint: ["/bin/bash"]
+    # stdin_open: true
+    # tty: true
+
+# volumes:
+#   postgres_data:

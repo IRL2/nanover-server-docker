@@ -11,11 +11,11 @@ show_help() {
     echo "Usage: $0 [command] [options...]"
     echo ""
     echo "Commands:"
-    echo "  demo                           Run nanover server with demo nanotube simulation"
+    echo "  demo                          Run nanover server with demo nanotube simulation"
     echo "  omni [files...]               Run nanover-omni with specified OpenMM XML files"
     echo "  notebook                      Run Jupyter notebook server with tutorials"
-    echo "  notebook --path <path>        Run Jupyter notebook server with custom path"
-    echo "  shell                         Start interactive bash shell"
+    echo "  notebook --path <path>        Run Jupyter notebook server from the /data path"
+    # echo "  shell                         Start interactive bash shell"
     echo "  help                          Show this help message"
     echo ""
     echo "Examples:"
@@ -23,11 +23,11 @@ show_help() {
     echo "  $0 omni --omm /data/simulation1.xml /data/simulation2.xml"
     echo "  $0 notebook"
     echo "  $0 notebook --path /data/my_notebooks/"
-    echo "  $0 shell"
+    # echo "  $0 shell"
     echo ""
     echo "Default behavior (no arguments): Start interactive shell"
     echo ""
-    echo "Available nanover commands:"
+    echo "Other available nanover commands:"
     ls -1 /opt/conda/envs/${CONDA_ENV_NAME:-nanover}/bin/nanover* 2>/dev/null || echo "  (none found - check installation)"
 }
 
@@ -37,21 +37,15 @@ run_demo() {
     echo "Command: nanover-omni --omm /app/nanover-server-py/tutorials/basics/openmm_files/nanotube.xml"
     
     # Check if demo file exists
-    DEMO_FILE="/app/nanover-server-py/tutorials/basics/openmm_files/nanotube.xml"
-    if [ ! -f "$DEMO_FILE" ]; then
-        echo "Warning: Demo file not found at $DEMO_FILE"
-        echo "Looking for alternative demo files..."
-        
-        # Search for any XML files in common locations
-        find /app -name "*.xml" 2>/dev/null | head -5 | while read file; do
-            echo "  Found: $file"
-        done
-        
+    DEMO_FILE1="/app/nanover-server-py/tutorials/basics/openmm_files/nanotube.xml"
+    DEMO_FILE2="/app/nanover-server-py/tutorials/openmm/openmm_files/17-ala.xml"
+    if [[ ! -f "$DEMO_FILE1" || ! -f "$DEMO_FILE2" ]]; then
+        echo "Warning: Demo file not found at $DEMO_FILE1 or $DEMO_FILE2"
         echo "You may need to provide your own simulation files in /data/"
         echo "Falling back to shell..."
         exec bash
     else
-        exec nanover-omni --omm "$DEMO_FILE"
+        exec nanover-omni --omm "$DEMO_FILE1" "$DEMO_FILE2"
     fi
 }
 
