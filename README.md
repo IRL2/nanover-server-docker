@@ -19,35 +19,34 @@ Taken as a distribution channel, a docker simplify the server execution for some
 
 ## Quick Start
 
-The `build.sh` bash script contains the tools to build the image and run a container
+The `nsd` bash script contains the tools to build the image and run a container
 
 1. **Build and run the server:**
    ```bash
-   chmod +x build.sh
-   ./build.sh
+   chmod +x nsd
+   ./nsd
    ```
 
 2. **Or use specific commands:**
 ```bash
    
    # Run a nanover server with some demo simulations
-   ./build.sh run
-   
+   ./nsd run demo
+ 
    # Run a nanover server with custom arguments, like provided simulations
-   ./build.sh run --omm /data/my_simulation.xml
+   ./nsd run --omm /data/my_simulation.xml
 
    # Run the tutorial jupyter notebooks
-   ./build.sh notebook
+   ./nsd notebook
 
    # Run an external jupyter notebooks
-   ./build.sh notebook --path /data/notebooks/
-
+   ./nsd notebook --path /data/notebooks/
    
    # Start interactive shell to run nanover commands from the inside
-   ./build.sh shell
+   ./nsd shell    OR    ./nsd run
 
    # Build the docker image only
-   ./build.sh build
+   ./nsd build
    
 ```
 
@@ -61,7 +60,7 @@ The container expects the following local directories (automatically created):
 ├── output/        # Output files, where recordings are placed
 ├── Dockerfile
 ├── docker-compose.yml
-├── build.sh
+├── nsd
 └── README.md
 ```
 
@@ -74,6 +73,7 @@ The container is configured to bind ports to all network interfaces (`0.0.0.0`),
 - `8888`  - HTTP jupyter notebook port
 - `38801` - NanoVer default port 1
 - `38802` - NanoVer default port 2
+- `38803` - NanoVer default port 3
 - `54545` - NanoVer discovery port
 
 ### Accessing from Other Devices
