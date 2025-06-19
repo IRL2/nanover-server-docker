@@ -12,7 +12,7 @@ show_help() {
     echo ""
     echo "Commands:"
     echo "  demo                          Run nanover server with demo nanotube simulation"
-    echo "  omni [files...]               Run nanover-omni with specified OpenMM XML files"
+    echo "  omni [args...]               Run nanover-omni with specified OpenMM XML files"
     echo "  notebook                      Run Jupyter notebook server with tutorials"
     echo "  notebook --path <path>        Run Jupyter notebook server from the /data path"
     # echo "  shell                         Start interactive bash shell"
@@ -25,9 +25,9 @@ show_help() {
     echo "  $0 notebook --path /data/my_notebooks/"
     # echo "  $0 shell"
     echo ""
-    echo "Default behavior (no arguments): Start interactive shell"
+    echo "Default behavior (no arguments): Start demo"
     echo ""
-    echo "Other available nanover commands:"
+    echo "Available nanover commands:"
     ls -1 /opt/conda/envs/${CONDA_ENV_NAME:-nanover}/bin/nanover* 2>/dev/null || echo "  (none found - check installation)"
 }
 
@@ -150,12 +150,13 @@ case "${1:-}" in
         show_help
         ;;
     "")
-        echo "No command provided. Starting interactive shell..."
-        echo "Use '$0 help' to see available commands."
-        echo ""
-        show_help
-        echo ""
-        exec bash
+        echo "No command provided. Starting demo..."
+#        echo "Use '$0 help' to see available commands."
+#        echo ""
+#        show_help
+#        echo ""
+#        exec bash
+        run_demo
         ;;
     *)
         echo "Unknown command: $1"

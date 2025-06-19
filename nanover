@@ -1,0 +1,67 @@
+#!/bin/bash
+
+set -e
+
+echo -e "=== NanoVer Server (docker container) ===\n"
+
+# Create necessary directories
+if [[ ! -d data || ! -d config || ! -d output ]]; then
+	echo "Creating directories: data, config, output"
+	mkdir -p data config output
+fi
+
+# Function to run the container
+run_container() {
+    echo "Starting NanoVer server container..."
+    
+    echo "Starting with arguments: $@"
+    docker run -it --rm \
+        -p 0.0.0.0:8888:8888 \
+        -p 0.0.0.0:38801:38801 \
+        -p 0.0.0.0:38802:38802 \
+        -p 0.0.0.0:54545:54545 \
+        -v $(pwd)/data:/app/data \
+        -v $(pwd)/config:/app/config \
+        -v $(pwd)/output:/app/output \
+        nanover-server:latest "$@"
+}
+
+# Function to run interactive shell in container
+run_shell() {
+    echo "Starting interactive shell in NanoVer container..."
+    docker run -it --rm \
+        -p 0.0.0.0:8888:8888 \
+        -p 0.0.0.0:38801:38801 \
+        -p 0.0.0.0:38802:38802 \
+        -p 0.0.0.0:54545:54545 \
+        -v $(pwd)/data:/app/data \
+        -v $(pwd)/config:/app/config \
+        -v $(pwd)/output:/app/output \
+        --entrypoint /bin/bash \
+        nanover-server:latest
+}
+
+# Parse command line arguments
+case "${1:-}" in
+    "shell")
+        run_shell
+        ;;
+    "help"|"-h"|"--help")
+        echo "Usage: $0 [command] [subcommand + args...]"
+        echo ""
+        echo "Commands:"
+        echo "  shell              Start an interactive shell in the container"
+        echo "  demo               Run nanover server with demo nanotube simulation"
+        echo "  omni [args...]     Run nanover-omni with specified OpenMM XML files"
+        echo "  notebook           Run Jupyter notebook server with tutorials"
+        echo "  notebook --path    Run Jupyter notebook server from the /data path"
+        echo "  help               Show more help on the commands"
+#        echo "Examples:"
+#        echo "  $0 demo"
+#        echo "  $0 notebook"
+        ;;
+    *)
+#        shift
+        run_container "$@"
+        ;;
+esac

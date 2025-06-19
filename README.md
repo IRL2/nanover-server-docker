@@ -19,50 +19,51 @@ Taken as a distribution channel, a docker simplify the server execution for some
 
 ## Quick Start
 
-The `nsd` bash script contains the tools to build the image and run a container
+The `nanover` bash script contains the tools to build the image and run a container
 
 1. **Build and run the server:**
+On Linux
    ```bash
-   chmod +x nsd
-   ./nsd
+   chmod +x nanover
+   ./nanover
    ```
+On Windows (with wsl installed)
+```
+bash nanover
+```
 
 2. **Or use specific commands:**
 ```bash
    
-   # Run a nanover server with some demo simulations
-   ./nsd run demo
+   # Run a nanover server with some demo simulations (Default)
+   ./nanover demo
  
    # Run a nanover server with custom arguments, like provided simulations
-   ./nsd run --omm /data/my_simulation.xml
+   ./nanover omni --omm /data/my_simulation.xml
 
    # Run the tutorial jupyter notebooks
-   ./nsd notebook
+   ./nanover notebook
 
    # Run an external jupyter notebooks
-   ./nsd notebook --path /data/notebooks/
+   ./nanover notebook --path /data/notebooks/
    
    # Start interactive shell to run nanover commands from the inside
-   ./nsd shell    OR    ./nsd run
-
-   # Build the docker image only
-   ./nsd build
-   
+   ./nanover shell
 ```
 
-## Directory Structure
+## Inside the image
 
 The container expects the following local directories (automatically created):
 
 ```
-├── data/          # Input files, like xml simulations, pdb files, state/traj recordings or ipynd notebooks
+├── data/          # Use it to load input files, like xml simulations, pdb files, state/traj recordings or ipynd notebooks
 ├── config/        # Configuration files
-├── output/        # Output files, where recordings are placed
-├── Dockerfile
-├── docker-compose.yml
-├── nsd
-└── README.md
+└── output/        # Output files, where recordings are placed
 ```
+
+Inside the image, there is an `/app` directory at root level, containing
+- The `entrypoint.sh` script, with the actual run and notebook commands
+- A copy of the [nanover-server-py](https://github.com/IRL2/nanover-server-py) repository, containing server code and all the tutorials
 
 
 ## Port Mapping & Network Access
@@ -96,3 +97,5 @@ ipconfig      # Windows
 - **Security**: Consider using specific IP binding for production environments
 
 
+## Building
+ To rebuild the image, run the `build.sh` script
