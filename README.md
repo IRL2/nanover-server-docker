@@ -8,14 +8,16 @@ This image contains:
 - python 3.11
 - a conda environment
 - the `nanover-server` package installed and ready to run
-- all dependancies including jupyter to run notebooks
-- a copy of the `nanover-server-py` repo
+- an activated conda nanover environment
+- all server dependancies installed, including jupyter to run notebooks
+- a copy of the `nanover-server-py` repo (this include all the tutorials!)
 
 ## Use case
 
-Taken as a distribution channel, a docker simplify the server execution for some users:
+Using it as a distribution channel, a container simplify the server execution for some users:
 - Users with problematic or nonstable python environments
 - Those who want a straight-forward user approach
+- Move us one step forward to running cloud servers
 
 ## Quick Start
 
