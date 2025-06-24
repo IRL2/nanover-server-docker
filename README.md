@@ -1,6 +1,6 @@
 # NanoVer server docker image
 
-A docker file (containerized environment) for running NanoVer server with all necessary dependencies installed
+A docker file (containerized environment) for running [NanoVer server](https://github.com/IRL2/nanover-server-py) with all necessary dependencies installed
 
 It follows the [official nanover documentation](https://irl2.github.io/nanover-docs/)
 
@@ -60,13 +60,16 @@ The container expects the following local directories (automatically created):
 ```
 ├── data/          # Use it to load input files, like xml simulations, pdb files, state/traj recordings or ipynd notebooks
 ├── config/        # Configuration files
-└── output/        # Output files, where recordings are placed
+├── output/        # Output files, where recordings are placed
 ```
 
-Inside the image, there is an `/app` directory at root level, containing
-- The `entrypoint.sh` script, with the actual run and notebook commands
-- A copy of the [nanover-server-py](https://github.com/IRL2/nanover-server-py) repository, containing server code and all the tutorials
+Plus
 
+```
+├── app/entrypoint.sh        # The internal bash script handling the docker run commands
+├── app/nanover-server-py/   # A copy of the nanover-server-py repository, including all tutorials
+└── app/nanover-server-py/tutorials/   # Tutorials, including jupyter notebooks and xml simulation files
+```
 
 ## Port Mapping & Network Access
 
