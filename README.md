@@ -1,8 +1,19 @@
 # NanoVer server docker image
 
-A docker file (containerized environment) for running NanoVer server with all necessary dependencies installed
+A docker file (containerized environment) for running NanoVer server with all necessary dependencies installed.
 
-It follows the [official nanover documentation](https://irl2.github.io/nanover-docs/)
+
+## Use case
+
+Use this repo to build your own image and run a container.
+
+Using a containerized server simplifies the environment setup and execution for some users, i.e.:
+- Users with problematic or nonstable python environments
+- Those who want a straight-forward user approach
+- Move us one step forward to running cloud servers
+
+
+This image follows the [official nanover documentation](https://irl2.github.io/nanover-docs/) to install the server.
 
 This image contains:
 - python 3.11
@@ -12,14 +23,20 @@ This image contains:
 - all server dependancies installed, including jupyter to run notebooks
 - a copy of the `nanover-server-py` repo (this include all the tutorials!)
 
-## Use case
+## Requirements
 
-Using it as a distribution channel, a container simplify the server execution for some users:
-- Users with problematic or nonstable python environments
-- Those who want a straight-forward user approach
-- Move us one step forward to running cloud servers
+The single requirement is the Docker Engine. It can be installed through the corresponding Docker Desktop App per OS.
 
-## Quick Start
+- On Windows, it requires to preinstall [WSL](https://learn.microsoft.com/en-gb/windows/wsl/install). We recommend to follow the official guide to install [Docker Desktop on Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
+- For OSX, also recommend to use [Docker Desktop on Mac](https://docs.docker.com/desktop/setup/install/mac-install/)
+- For Linux, you can directly install the [Docker Engine for Linux](https://docs.docker.com/engine/install/)
+
+Be sure that this programs are running before running the container.
+
+## Usage
+
+
+### Scripts
 
 The `nanover` bash script contains the tools to build the image and run a container
 

@@ -20,9 +20,9 @@ show_help() {
     echo ""
     echo "Examples:"
     echo "  $0 demo"
-    echo "  $0 omni --omm /data/simulation1.xml /data/simulation2.xml"
+    echo "  $0 omni --omm ./data/simulation1.xml ./data/simulation2.xml"
     echo "  $0 notebook"
-    echo "  $0 notebook --path /data/my_notebooks/"
+    echo "  $0 notebook --path ./data/my_notebooks/"
     # echo "  $0 shell"
     echo ""
     echo "Default behavior (no arguments): Start demo"
@@ -59,7 +59,7 @@ run_omni() {
     if [ $# -eq 0 ]; then
         echo "Error: No files provided for omni command"
         echo "Usage: omni --omm <file1.xml> [file2.xml] [...]"
-        echo "Example: omni --omm /data/simulation.xml"
+        echo "Example: omni --omm ./data/simulation.xml"
         exit 1
     fi
     
