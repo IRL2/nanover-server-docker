@@ -13,9 +13,8 @@ RUN conda update -n base -c defaults conda && \
     conda install -n base -c conda-forge mamba
 
 # Create conda environment and install nanover-server first
-RUN mamba create -n ${CONDA_ENV_NAME} -c irl -c conda-forge \
-    nanover-server \
-    python=3.11 \
+RUN mamba create -n ${CONDA_ENV_NAME} -c conda-forge \
+    irl::nanover-server \
     -y && \
     conda clean -afy
 
