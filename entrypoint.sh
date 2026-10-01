@@ -12,7 +12,7 @@ show_help() {
     echo ""
     echo "Commands:"
     echo "  demo                          Run nanover server with demo nanotube simulation"
-    echo "  omni [args...]               Run nanover-omni with specified OpenMM XML files"
+    echo "  server [args...]               Run nanover-server with specified OpenMM XML files"
     echo "  notebook                      Run Jupyter notebook server with tutorials"
     echo "  notebook --path <path>        Run Jupyter notebook server from the /data path"
     # echo "  shell                         Start interactive bash shell"
@@ -20,7 +20,7 @@ show_help() {
     echo ""
     echo "Examples:"
     echo "  $0 demo"
-    echo "  $0 omni --omm ./data/simulation1.xml ./data/simulation2.xml"
+    echo "  $0 server --omm ./data/simulation1.xml ./data/simulation2.xml"
     echo "  $0 notebook"
     echo "  $0 notebook --path ./data/my_notebooks/"
     # echo "  $0 shell"
@@ -34,36 +34,36 @@ show_help() {
 # Function to run demo simulation
 run_demo() {
     echo "Starting NanoVer server with demo nanotube simulation..."
-    echo "Command: nanover-omni --omm /app/nanover-server-py/tutorials/basics/openmm_files/nanotube.xml"
+    echo "Command: nanover-server --omm ${DEMO_FILE1} ${DEMO_FILE2}"
     
     # Check if demo file exists
-    DEMO_FILE1="/app/nanover-server-py/tutorials/basics/openmm_files/nanotube.xml"
-    DEMO_FILE2="/app/nanover-server-py/tutorials/openmm/openmm_files/17-ala.xml"
+    DEMO_FILE1="/app/nanover-server-py/tutorials/systems/openmm/17-ala.openmm.zip"
+    DEMO_FILE2="/app/nanover-server-py/tutorials/systems/openmm/nanotube.openmm.zip"
     if [[ ! -f "$DEMO_FILE1" || ! -f "$DEMO_FILE2" ]]; then
         echo "Warning: Demo file not found at $DEMO_FILE1 or $DEMO_FILE2"
         echo "You may need to provide your own simulation files in /data/"
         echo "Falling back to shell..."
         exec bash
     else
-        exec nanover-omni --omm "$DEMO_FILE1" "$DEMO_FILE2"
+        exec nanover-server --omm "$DEMO_FILE1" "$DEMO_FILE2"
     fi
 }
 
-# Function to run nanover-omni with custom files
-run_omni() {
-    echo "Starting nanover-omni with provided arguments..."
+# Function to run nanover-server with custom files
+run_server() {
+    echo "Starting nanover-server with provided arguments..."
     
-    # Skip the 'omni' command itself
+    # Skip the 'server' command itself
     shift
     
     if [ $# -eq 0 ]; then
-        echo "Error: No files provided for omni command"
-        echo "Usage: omni --omm <file1.xml> [file2.xml] [...]"
-        echo "Example: omni --omm ./data/simulation.xml"
+        echo "Error: No files provided for server command"
+        echo "Usage: server --omm <file1.xml> [file2.xml] [...]"
+        echo "Example: server --omm ./data/simulation.xml"
         exit 1
     fi
     
-    echo "Command: nanover-omni $@"
+    echo "Command: nanover-server $@"
     
     # Validate that files exist if they're local paths
     for arg in "$@"; do
@@ -72,7 +72,7 @@ run_omni() {
         fi
     done
     
-    exec nanover-omni "$@"
+    exec nanover-server "$@"
 }
 
 # Function to run Jupyter notebook
@@ -132,8 +132,8 @@ case "${1:-}" in
     "demo")
         run_demo
         ;;
-    "omni")
-        run_omni "$@"
+    "server")
+        run_server "$@"
         ;;
     "notebook")
         shift
